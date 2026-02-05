@@ -1,244 +1,241 @@
+/* CONTACT SECTION*/
+
 #contact {
-    padding: 50px 0;
-    background-color: #008080; 
-    position: relative; 
-  }
-  
-  #contact .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 15px;
-  }
-  
-  /* Section Title */
-  #contact h2 {
-    text-align: center;
-    color: #d6eaff; 
-    font-weight: bold; 
-    text-transform: uppercase; 
-  }
-  
-  /* Contact Form */
-  #contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; 
-    background-color: #ffffff; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
-    padding: 30px; 
-    width:100%;
-  }
-  
-  /* Input Fields */
-  #contact-form input[type="text"],
-  #contact-form input[type="email"],
-  #contact-form textarea {
-    width: 100%;
-    padding: 15px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px; 
-    transition: border-color 0.3s, box-shadow 0.3s; 
-  }
-  
-  /* Input Focus Effects */
-  #contact-form input:focus,
-  #contact-form textarea:focus {
-    border-color: #3498db; 
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-    outline: none;
-  }
-  
-  /* Textarea */
-  #contact-form textarea {
-    height: 150px; 
-    resize: none;
-  }
-  
-  /* Submit Button */
-  #contact-form button {
-    background-color: #3498db; 
-    color: #fff; 
-    width:250px;
-    padding: 15px;
-    font-size: 1rem;
-    border: none; 
-    border-radius: 5px; 
-    cursor: pointer; 
-    transition: background-color 0.3s, transform 0.2s; 
-  }
-  
-  /* Button Hover Effects */
-  #contact-form button:hover {
-    cursor: pointer;
-    background-color: #2980b9; 
-    transform: translateY(-2px); 
-  }
-  
-  /* Button Focus Effect */
-  #contact-form button:focus {
-    outline: none; 
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); 
-  }
- /* Container for the events */
+  padding: 70px 0;
+  background-color: #008080;
+  position: relative;
+}
+
+#contact .container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+#contact h2 {
+  text-align: center;
+  color: #d6eaff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+#contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  padding: 35px;
+  width: 100%;
+}
+
+#contact-form input[type="text"],
+#contact-form input[type="email"],
+#contact-form textarea {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  outline: none;
+}
+
+#contact-form textarea {
+  height: 150px;
+  resize: none;
+}
+
+#contact-form button {
+  background-color: #3498db;
+  color: #fff;
+  width: 200px;
+  padding: 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  align-self: center;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#contact-form button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+/*EVENTS SECTION */
+
 .event-list {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Adds more space between the event items */
-  margin-bottom: 20px;
-  margin-top: 20px; /* Adding top margin */
+  gap: 20px;
+  margin: 30px 0;
 }
 
-/* Individual event item */
 .event-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px; /* Increased padding for more space */
-  border: 2px solid var(--roman-silver); /* Border matching roman silver */
-  border-radius: 12px; /* Slightly more rounded corners */
-  background-color: var(--roman-silver_10); /* Light transparent background */
-  color: var(--roman-silver); /* Text color using roman silver */
-  transition: background-color 0.3s ease;
-  font-size: 1.4rem; /* Bigger font size for better readability */
+  padding: 22px;
+  border: 2px solid var(--roman-silver);
+  border-radius: 16px;
+  background-color: var(--roman-silver_10);
+  color: var(--roman-silver);
+  font-size: 1.2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Event date box styling */
+.event-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
 .event-date-box {
-  background-color: var(--light-coral); /* Light coral background for date box */
-  padding: 15px; /* Increased padding for a larger box */
+  background-color: var(--light-coral);
+  padding: 14px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 90px; /* Slightly larger date box */
+  min-width: 85px;
 }
 
 .event-month {
-  font-size: 1.8rem; /* Bigger size for the month */
+  font-size: 1.6rem;
   font-weight: bold;
-  color: var(--oxford-blue); /* Oxford blue text color */
+  color: var(--oxford-blue);
 }
 
 .event-day {
-  font-size: 3.2rem; /* Bigger size for the day */
+  font-size: 3rem;
   font-weight: bold;
-  color: var(--oxford-blue); /* Oxford blue text */
+  color: var(--oxford-blue);
 }
 
-/* Event details styling */
 .event-details {
   flex-grow: 1;
-  margin-left: 30px; /* More space between date and details */
+  margin-left: 30px;
 }
 
 .event-title {
-  font-size: 2rem; /* Larger font size for titles */
-  font-weight: 700; /* Bolder font for event titles */
-  color: var(--light-coral); /* Light coral for event titles */
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--light-coral);
+  margin-bottom: 5px;
 }
 
 .event-description {
-  font-size: 1.4rem; /* Larger description font size */
-  color: rgba(240, 74, 74, 0.862) /* Roman silver for descriptions */
+  font-size: 1.3rem;
+  color: rgba(240, 74, 74, 0.86);
+  opacity: 0.9;
 }
 
-/* Event button */
 .event-button {
   background-color: transparent;
-  border: 2px solid var(--keppei); /* Keppei color for button borders */
-  padding: 16px 28px; /* Bigger padding for a larger button */
-  border-radius: 10px;
-  font-size: 1.4rem; /* Larger font size for buttons */
-  color: var(--keppei); /* Keppei color for the text */
+  border: 2px solid var(--keppei);
+  padding: 14px 26px;
+  border-radius: 30px;
+  font-size: 1.3rem;
+  color: var(--keppei);
+  font-weight: bold;
   text-decoration: none;
-  font-weight: bold; /* Bolder button text */
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .event-button:hover {
-  cursor: pointer;
-  background-color: var(--keppei); /* Keppei background on hover */
-  color: var(--oxford-blue); /* Oxford blue text on hover */
-  transform: scale(1.1); /* Slightly bigger button on hover */
+  background-color: var(--keppei);
+  color: var(--oxford-blue);
+  transform: scale(1.05);
 }
 
-/* Hover effect for event items */
-.event-item:hover {
-  transform: scale(1.03); /* Slightly enlarges the event item on hover */
-  cursor: pointer;
+/*CTA / HOMEPAGE BUTTONS*/
+
+.btn-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
 }
 
+.cta-btn {
+  width: 280px;
+  background-color: #fff;
+  border-radius: 40px;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-#search-results{
-  position:absolute;
+.cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+#cta-label {
+  font-weight: bold;
+  color: #fff;
+  font-size: 34px;
+  width: 50%;
+  line-height: 1.3;
+  margin: auto;
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 12px 26px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: rgba(0, 0, 0, 0.95);
+  transform: scale(1.08);
+}
+
+/*SEARCH / THEME */
+
+#search-results {
+  position: absolute;
   left: -100px;
   width: 350px;
- color: black;
+  color: black;
   margin-top: 50px;
-
 }
 
-#freeTrial{
+#freeTrial {
   position: absolute;
   right: 90px;
-  margin-right: 30px;
-  margin-bottom: 30px; 
-
+  margin-bottom: 30px;
 }
 
-#theme-toggle{
+#theme-toggle {
   position: absolute;
   right: 5px;
   top: 20px;
   margin-right: 60px;
 }
 
-.cta-btn{
-  width: 40%;
-  background-color: #fff;
-  border-radius: 20px;
-  padding: 10px;
-  font-size: 20px;
-  text-align: center; 
-  font-weight: bold;
-  
-}
+/*SKELETON LOADER*/
 
-#cta-label {
-  font-weight: bold;  /* Makes the text bold */
-  color: #fff;        /* Sets the text color to white */
-  margin-bottom: 10px;
-  font-size: 36px;
-  width: 50%;
-}
-
-.btn-box{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.button{
-  display: inline-block;
-  width: fit-content;
-  background-color: rgba(0, 0, 0, 0.753);
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 20px;
-  text-align: center;
-  font-weight: bold;
-  color: white;
-  transition: all 0.9s ease;
-}
-
-.button:hover{
-  background-color: rgba(0, 0, 0, 0.977);
-  transform: scale(1.3);
-  color: white;
-}
-/* Basic styles for the skeleton loader */
 .skeleton-loader {
   display: flex;
   flex-direction: column;
@@ -250,10 +247,9 @@
   background-color: #e0e0e0;
   position: relative;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
-/* Different skeleton shapes */
 .skeleton-text {
   width: 100%;
   height: 16px;
@@ -275,7 +271,6 @@
   border-radius: 8px;
 }
 
-/* Shimmer animation for loading effect */
 .skeleton::before {
   content: '';
   position: absolute;
@@ -292,44 +287,22 @@
   100% { transform: translateX(100%); }
 }
 
-/* Style for the actual content (hidden initially) */
-.content {
-  padding: 2rem;
-}
-/* Style for E-book button */
-.E-book-button {
-  display: inline-block;
-  padding: 10px 20px;
-  color: #fff;
-  background-color: #ff6f91; /* Precise pink color */
-  text-decoration: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+/*E-BOOK & FEEDBACK*/
 
-.E-book-button a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.E-book-button:hover {
-  background-color: #e91e63; /* Darker pink for hover */
-  color: #fff;
-}
-
-/* Style for Feedback button */
+.E-book-button,
 #feedbackButton {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 12px 24px;
   color: #fff;
-  background-color: #ff6f91; /* Matching pink color */
-  border-radius: 5px;
+  background-color: #ff6f91;
+  border-radius: 30px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+.E-book-button:hover,
 #feedbackButton:hover {
-  background-color: #e91e63; /* Darker pink for hover */
-  color: #fff;
+  background-color: #e91e63;
+  transform: translateY(-2px);
 }
