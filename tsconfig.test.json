@@ -1,0 +1,19 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "rootDir": "./assets/js",
+        "noEmit": true,
+        "types": [
+            "jest",
+            "node"
+        ]
+    },
+    "include": [
+        "assets/js/**/*.ts",
+        "assets/js/__tests__/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
