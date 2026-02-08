@@ -1,1 +1,32 @@
+# Dependencies
 node_modules/
+
+# Build output
+dist/
+
+# Coverage reports
+coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+*.log
+junit.xml
+test-results/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+.npm/
