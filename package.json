@@ -1,0 +1,37 @@
+{
+    "name": "skillwise",
+    "version": "1.0.0",
+    "description": "SkillWise - A skill-development web platform",
+    "main": "index.html",
+    "scripts": {
+        "build": "tsc",
+        "build:watch": "tsc --watch",
+        "lint": "eslint 'assets/js/**/*.ts' --ignore-pattern '**/*.d.ts' --ignore-pattern '**/*.test.ts' --ignore-pattern '**/__tests__/**' --max-warnings 0",
+        "lint:fix": "eslint 'assets/js/**/*.ts' --ignore-pattern '**/*.d.ts' --ignore-pattern '**/*.test.ts' --ignore-pattern '**/__tests__/**' --fix",
+        "test": "jest --coverage",
+        "test:watch": "jest --watch",
+        "test:ci": "jest --coverage --ci --reporters=default --reporters=jest-junit",
+        "typecheck": "tsc --noEmit",
+        "check:all": "npm run typecheck && npm run lint && npm run test"
+    },
+    "keywords": [
+        "skillwise",
+        "learning",
+        "education",
+        "typescript"
+    ],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/jest": "^29.5.12",
+        "@types/node": "^20.11.25",
+        "@typescript-eslint/eslint-plugin": "^7.1.1",
+        "@typescript-eslint/parser": "^7.1.1",
+        "eslint": "^8.57.0",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "jest-junit": "^16.0.0",
+        "ts-jest": "^29.1.2",
+        "typescript": "^5.4.2"
+    }
+}

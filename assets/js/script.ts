@@ -2,13 +2,27 @@
  * SkillWise Main Script
  * Core functionality with strict TypeScript typing
  */
+
+import type {
+    EventCallback,
+    ProgressData,
+    CourseProgress,
+    Nullable,
+    PopupConfig
+} from './types';
+
 // ============================================================
 // Utility Functions
 // ============================================================
+
 /**
  * Add event listener to multiple elements
  */
-export function addEventOnElements(elements, eventType, callback) {
+export function addEventOnElements(
+    elements: NodeListOf<Element> | HTMLCollectionOf<Element>,
+    eventType: string,
+    callback: EventCallback
+): void {
     for (let i = 0, len = elements.length; i < len; i++) {
         const element = elements[i];
         if (element !== undefined) {
@@ -16,25 +30,30 @@ export function addEventOnElements(elements, eventType, callback) {
         }
     }
 }
+
 /**
  * Safely get an element by selector with type assertion
  */
-function getElement(selector) {
-    return document.querySelector(selector);
+function getElement<T extends Element>(selector: string): Nullable<T> {
+    return document.querySelector<T>(selector);
 }
+
 /**
  * Safely get an element by ID with type assertion
  */
-function getElementById(id) {
-    return document.getElementById(id);
+function getElementById<T extends HTMLElement>(id: string): Nullable<T> {
+    return document.getElementById(id) as Nullable<T>;
 }
+
 // ============================================================
 // Preloader Module
 // ============================================================
-export function initPreloader() {
-    const preloader = getElement('[data-preloader]');
-    const circle = getElement('[data-circle]');
-    window.addEventListener('load', () => {
+
+export function initPreloader(): void {
+    const preloader = getElement<HTMLElement>('[data-preloader]');
+    const circle = getElement<HTMLElement>('[data-circle]');
+
+    window.addEventListener('load', (): void => {
         if (preloader !== null) {
             preloader.classList.add('loaded');
             if (circle !== null) {
@@ -44,14 +63,17 @@ export function initPreloader() {
         }
     });
 }
+
 // ============================================================
 // Navbar Module
 // ============================================================
-export function initNavbar() {
-    const navbar = getElement('[data-navbar]');
-    const navTogglers = document.querySelectorAll('[data-nav-toggler]');
-    const overlay = getElement('[data-overlay]');
-    const toggleNavbar = () => {
+
+export function initNavbar(): void {
+    const navbar = getElement<HTMLElement>('[data-navbar]');
+    const navTogglers = document.querySelectorAll<HTMLElement>('[data-nav-toggler]');
+    const overlay = getElement<HTMLElement>('[data-overlay]');
+
+    const toggleNavbar = (): void => {
         if (navbar !== null) {
             navbar.classList.toggle('active');
         }
@@ -60,99 +82,125 @@ export function initNavbar() {
         }
         document.body.classList.toggle('nav-active');
     };
-    navTogglers.forEach((toggler) => {
+
+    navTogglers.forEach((toggler: HTMLElement): void => {
         toggler.addEventListener('click', toggleNavbar);
     });
 }
+
 // ============================================================
 // Header Module
 // ============================================================
-export function initHeader() {
-    const header = getElement('[data-header]');
-    const headerActive = () => {
+
+export function initHeader(): void {
+    const header = getElement<HTMLElement>('[data-header]');
+
+    const headerActive = (): void => {
         if (header === null) {
             return;
         }
+
         if (window.scrollY > 100) {
             header.classList.add('active');
-        }
-        else {
+        } else {
             header.classList.remove('active');
         }
     };
+
     window.addEventListener('scroll', headerActive);
 }
+
 // ============================================================
 // Footer Year Module
 // ============================================================
-export function initFooterYear() {
-    const yearEl = getElementById('year');
+
+export function initFooterYear(): void {
+    const yearEl = getElementById<HTMLElement>('year');
     if (yearEl !== null) {
         yearEl.textContent = new Date().getFullYear().toString();
     }
 }
+
 // ============================================================
 // Popup Utility Module
 // ============================================================
-const DEFAULT_POPUP_CONFIG = {
+
+const DEFAULT_POPUP_CONFIG: PopupConfig = {
     delayShow: 100,
     delayHide: 3000,
     showTranslate: 'translate(0)',
     hideTranslate: 'translate(120%)'
 };
-export function showAndHidePopUp(selector, delayShow = DEFAULT_POPUP_CONFIG.delayShow, delayHide = DEFAULT_POPUP_CONFIG.delayHide, showTranslate = DEFAULT_POPUP_CONFIG.showTranslate, hideTranslate = DEFAULT_POPUP_CONFIG.hideTranslate) {
-    setTimeout(() => {
-        const element = getElement(selector);
+
+export function showAndHidePopUp(
+    selector: string,
+    delayShow: number = DEFAULT_POPUP_CONFIG.delayShow,
+    delayHide: number = DEFAULT_POPUP_CONFIG.delayHide,
+    showTranslate: string = DEFAULT_POPUP_CONFIG.showTranslate,
+    hideTranslate: string = DEFAULT_POPUP_CONFIG.hideTranslate
+): void {
+    setTimeout((): void => {
+        const element = getElement<HTMLElement>(selector);
         if (element !== null) {
             element.style.transform = showTranslate;
-            setTimeout(() => {
+            setTimeout((): void => {
                 element.style.transform = hideTranslate;
             }, delayHide);
         }
     }, delayShow);
 }
-export function selectFeedbackRequestPopUp() {
+
+export function selectFeedbackRequestPopUp(): void {
     showAndHidePopUp('.feedbackRequestPopUp');
 }
-export function feedbackPopUpSuccessDisplay() {
+
+export function feedbackPopUpSuccessDisplay(): void {
     showAndHidePopUp('.feedbackPopUpSuccess');
 }
-export function selectEmotionPopUpDisplay() {
+
+export function selectEmotionPopUpDisplay(): void {
     showAndHidePopUp('.selectEmotionPopUp');
 }
+
 // ============================================================
 // Feedback Module
 // ============================================================
-export function initFeedback() {
+
+export function initFeedback(): void {
     let selectedEmotion = '';
-    const feedbackBtn = getElementById('feedbackButton');
-    const closeCtx = getElementById('closeModal');
-    const nextToFeed = getElementById('nextToFeedback');
-    const nextToEmail = getElementById('nextToEmail');
-    const backToEmoji = getElementById('backToEmoji');
-    const backToFeedback = getElementById('backToFeedback');
-    const feedbackForm = getElementById('feedbackForm');
-    const feedbackModal = getElementById('feedbackModal');
+
+    const feedbackBtn = getElementById<HTMLElement>('feedbackButton');
+    const closeCtx = getElementById<HTMLElement>('closeModal');
+    const nextToFeed = getElementById<HTMLElement>('nextToFeedback');
+    const nextToEmail = getElementById<HTMLElement>('nextToEmail');
+    const backToEmoji = getElementById<HTMLElement>('backToEmoji');
+    const backToFeedback = getElementById<HTMLElement>('backToFeedback');
+    const feedbackForm = getElementById<HTMLFormElement>('feedbackForm');
+    const feedbackModal = getElementById<HTMLElement>('feedbackModal');
+
     if (feedbackBtn !== null && feedbackModal !== null) {
-        feedbackBtn.onclick = () => {
+        feedbackBtn.onclick = (): void => {
             feedbackModal.style.display = 'flex';
         };
     }
+
     if (closeCtx !== null && feedbackModal !== null) {
-        closeCtx.onclick = () => {
+        closeCtx.onclick = (): void => {
             feedbackModal.style.display = 'none';
         };
     }
+
     if (nextToFeed !== null) {
-        nextToFeed.onclick = () => {
-            const selectedEmoji = getElement('.emoji.selected');
+        nextToFeed.onclick = (): void => {
+            const selectedEmoji = getElement<HTMLElement>('.emoji.selected');
             if (selectedEmoji === null) {
                 selectEmotionPopUpDisplay();
                 return;
             }
             selectedEmotion = selectedEmoji.dataset['value'] ?? '';
-            const step1 = getElementById('step1');
-            const step2 = getElementById('step2');
+
+            const step1 = getElementById<HTMLElement>('step1');
+            const step2 = getElementById<HTMLElement>('step2');
             if (step1 !== null) {
                 step1.style.display = 'none';
             }
@@ -161,32 +209,37 @@ export function initFeedback() {
             }
         };
     }
+
     // Emoji selection
-    document.querySelectorAll('.emoji').forEach((emoji) => {
-        emoji.onclick = () => {
-            document.querySelectorAll('.emoji').forEach((e) => {
+    document.querySelectorAll<HTMLElement>('.emoji').forEach((emoji: HTMLElement): void => {
+        emoji.onclick = (): void => {
+            document.querySelectorAll<HTMLElement>('.emoji').forEach((e: HTMLElement): void => {
                 e.classList.remove('selected');
             });
             emoji.classList.add('selected');
-            const notSelectedMsg = getElementById('emoji-not-selected');
+
+            const notSelectedMsg = getElementById<HTMLElement>('emoji-not-selected');
             if (notSelectedMsg !== null) {
                 notSelectedMsg.hidden = true;
             }
-            const emojisDiv = document.getElementsByClassName('emojis')[0];
+
+            const emojisDiv = document.getElementsByClassName('emojis')[0] as HTMLElement | undefined;
             if (emojisDiv !== undefined) {
                 emojisDiv.style.margin = '20px 0';
             }
         };
     });
+
     if (nextToEmail !== null) {
-        nextToEmail.onclick = () => {
-            const feedbackInput = getElementById('feedback');
+        nextToEmail.onclick = (): void => {
+            const feedbackInput = getElementById<HTMLTextAreaElement>('feedback');
             if (feedbackInput === null || feedbackInput.value === '') {
                 selectFeedbackRequestPopUp();
                 return;
             }
-            const step2 = getElementById('step2');
-            const step3 = getElementById('step3');
+
+            const step2 = getElementById<HTMLElement>('step2');
+            const step3 = getElementById<HTMLElement>('step3');
             if (step2 !== null) {
                 step2.style.display = 'none';
             }
@@ -195,10 +248,11 @@ export function initFeedback() {
             }
         };
     }
+
     if (backToEmoji !== null) {
-        backToEmoji.onclick = () => {
-            const step2 = getElementById('step2');
-            const step1 = getElementById('step1');
+        backToEmoji.onclick = (): void => {
+            const step2 = getElementById<HTMLElement>('step2');
+            const step1 = getElementById<HTMLElement>('step1');
             if (step2 !== null) {
                 step2.style.display = 'none';
             }
@@ -207,10 +261,11 @@ export function initFeedback() {
             }
         };
     }
+
     if (backToFeedback !== null) {
-        backToFeedback.onclick = () => {
-            const step3 = getElementById('step3');
-            const step2 = getElementById('step2');
+        backToFeedback.onclick = (): void => {
+            const step3 = getElementById<HTMLElement>('step3');
+            const step2 = getElementById<HTMLElement>('step2');
             if (step3 !== null) {
                 step3.style.display = 'none';
             }
@@ -219,15 +274,17 @@ export function initFeedback() {
             }
         };
     }
+
     // Check for popup on load
-    window.addEventListener('load', () => {
+    window.addEventListener('load', (): void => {
         if (sessionStorage.getItem('showPopUp') === 'true') {
             feedbackPopUpSuccessDisplay();
             sessionStorage.removeItem('showPopUp');
         }
     });
+
     if (feedbackForm !== null && feedbackModal !== null) {
-        feedbackForm.onsubmit = (event) => {
+        feedbackForm.onsubmit = (event: Event): void => {
             event.preventDefault();
             feedbackForm.reset();
             feedbackModal.style.display = 'none';
@@ -235,122 +292,143 @@ export function initFeedback() {
             window.location.reload();
         };
     }
+
     // Use selectedEmotion to avoid unused variable warning
     void selectedEmotion;
 }
+
 // ============================================================
 // Progress Manager Class
 // ============================================================
+
 export class ProgressManager {
+    private readonly storageKey: string = 'skillwise_user_progress';
+    private progress: ProgressData;
+
     constructor() {
-        this.storageKey = 'skillwise_user_progress';
         this.progress = this.loadProgress();
         this.init();
     }
-    loadProgress() {
+
+    public loadProgress(): ProgressData {
         const data = localStorage.getItem(this.storageKey);
         if (data === null) {
             return {};
         }
         try {
-            return JSON.parse(data);
-        }
-        catch {
+            return JSON.parse(data) as ProgressData;
+        } catch {
             return {};
         }
     }
-    saveProgress() {
+
+    public saveProgress(): void {
         localStorage.setItem(this.storageKey, JSON.stringify(this.progress));
     }
-    generateId(title) {
+
+    public generateId(title: string): string {
         return title.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-');
     }
-    toggleCourse(id, isCompleted) {
+
+    public toggleCourse(id: string, isCompleted: boolean): void {
         if (isCompleted) {
-            const courseProgress = {
+            const courseProgress: CourseProgress = {
                 completedAt: new Date().toISOString(),
                 status: 'completed'
             };
             this.progress[id] = courseProgress;
-        }
-        else {
+        } else {
             // Use destructuring to remove the key instead of delete
             const { [id]: _removed, ...rest } = this.progress;
             this.progress = rest;
         }
         this.saveProgress();
     }
-    createToggleElement(card, courseId) {
+
+    public createToggleElement(card: HTMLElement, courseId: string): void {
         if (card.querySelector('.progress-toggle-container') !== null) {
             return;
         }
+
         const container = document.createElement('div');
         container.className = 'progress-toggle-container';
+
         const isCompleted = this.progress[courseId] !== undefined;
         if (isCompleted) {
             card.classList.add('course-completed');
         }
+
         const label = document.createElement('label');
         label.className = 'progress-checkbox-label';
+
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = isCompleted;
         checkbox.className = 'progress-checkbox';
+
         const span = document.createElement('span');
         span.textContent = isCompleted ? 'Completed' : 'Mark as Completed';
-        checkbox.addEventListener('change', (e) => {
-            const target = e.target;
+
+        checkbox.addEventListener('change', (e: Event): void => {
+            const target = e.target as HTMLInputElement;
             const checked = target.checked;
             this.toggleCourse(courseId, checked);
             span.textContent = checked ? 'Completed' : 'Mark as Completed';
             if (checked) {
                 card.classList.add('course-completed');
                 this.triggerConfetti(container);
-            }
-            else {
+            } else {
                 card.classList.remove('course-completed');
             }
         });
+
         label.appendChild(checkbox);
         label.appendChild(span);
         container.appendChild(label);
-        const textDiv = card.querySelector('div:nth-child(2)');
+
+        const textDiv = card.querySelector<HTMLElement>('div:nth-child(2)');
         if (textDiv !== null) {
             textDiv.appendChild(container);
-        }
-        else {
+        } else {
             card.appendChild(container);
         }
     }
-    triggerConfetti(element) {
+
+    public triggerConfetti(element: HTMLElement): void {
         const celebration = document.createElement('span');
         celebration.textContent = '🎉';
         celebration.className = 'completion-confetti';
         element.appendChild(celebration);
-        setTimeout(() => {
+        setTimeout((): void => {
             celebration.remove();
         }, 1000);
     }
-    init() {
+
+    public init(): void {
         this.injectStyles();
-        const courseCards = document.querySelectorAll('.course-card, .card');
-        courseCards.forEach((card) => {
-            const titleEl = card.querySelector('.title-lg, .course-title, h3');
+        const courseCards = document.querySelectorAll<HTMLElement>('.course-card, .card');
+
+        courseCards.forEach((card: HTMLElement): void => {
+            const titleEl = card.querySelector<HTMLElement>('.title-lg, .course-title, h3');
             if (titleEl === null) {
                 return;
             }
+
             const title = titleEl.textContent;
             if (title === null || title.trim().length < 2) {
                 return;
             }
+
             const id = this.generateId(title);
             this.createToggleElement(card, id);
         });
     }
-    injectStyles() {
+
+    public injectStyles(): void {
         if (document.getElementById('progress-manager-styles') !== null) {
             return;
         }
+
         const style = document.createElement('style');
         style.id = 'progress-manager-styles';
         style.textContent = `
@@ -420,23 +498,27 @@ export class ProgressManager {
     `;
         document.head.appendChild(style);
     }
+
     // Getter for testing purposes
-    getProgress() {
+    public getProgress(): ProgressData {
         return { ...this.progress };
     }
 }
+
 // ============================================================
 // Initialization
 // ============================================================
-export function initializeApp() {
+
+export function initializeApp(): void {
     initPreloader();
     initNavbar();
     initHeader();
     initFooterYear();
     initFeedback();
 }
+
 // Start the application when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', (): void => {
     initializeApp();
     new ProgressManager();
 });

@@ -2,10 +2,14 @@
  * SkillWise Blog Module
  * Blog rendering functionality with strict TypeScript typing
  */
+
+import type { BlogEntry, Nullable } from './types';
+
 // ============================================================
 // Blog Data
 // ============================================================
-export const blogs = [
+
+export const blogs: readonly BlogEntry[] = [
     {
         title: 'Blog Title 1',
         description: 'Short description of Blog 1.',
@@ -18,15 +22,17 @@ export const blogs = [
         image: '../assets/images/blog2.jpg',
         link: '/pages/blog2.html'
     }
-];
+] as const;
+
 // ============================================================
 // Security Functions
 // ============================================================
+
 /**
  * Escape HTML special characters to prevent XSS
  */
-export function escapeHTML(str) {
-    const htmlEntities = {
+export function escapeHTML(str: string): string {
+    const htmlEntities: Record<string, string> = {
         '&': '&amp;',
         '<': '&lt;',
         '>': '&gt;',
@@ -36,30 +42,37 @@ export function escapeHTML(str) {
         '`': '&#x60;',
         '=': '&#x3D;'
     };
-    return str.replace(/[&<>"'`=/]/g, (char) => {
+
+    return str.replace(/[&<>"'`=/]/g, (char: string): string => {
         return htmlEntities[char] ?? char;
     });
 }
+
 /**
  * Validate blog entry has required fields
  */
-export function isValidBlogEntry(entry) {
+export function isValidBlogEntry(entry: unknown): entry is BlogEntry {
     if (typeof entry !== 'object' || entry === null) {
         return false;
     }
-    const obj = entry;
-    return (typeof obj['title'] === 'string' &&
+
+    const obj = entry as Record<string, unknown>;
+    return (
+        typeof obj['title'] === 'string' &&
         typeof obj['description'] === 'string' &&
         typeof obj['image'] === 'string' &&
-        typeof obj['link'] === 'string');
+        typeof obj['link'] === 'string'
+    );
 }
+
 // ============================================================
 // Blog Card Generation
 // ============================================================
+
 /**
  * Generate HTML for a single blog card
  */
-export function generateBlogCardHTML(blog) {
+export function generateBlogCardHTML(blog: BlogEntry): string {
     return `
     <a href="${escapeHTML(blog.link)}">
       <img src="${escapeHTML(blog.image)}" alt="${escapeHTML(blog.title)}" />
@@ -68,65 +81,80 @@ export function generateBlogCardHTML(blog) {
     </a>
   `;
 }
+
 /**
  * Create a blog card element
  */
-export function createBlogCard(blog) {
+export function createBlogCard(blog: BlogEntry): HTMLLIElement {
     const blogCard = document.createElement('li');
     blogCard.classList.add('blog-card');
     blogCard.innerHTML = generateBlogCardHTML(blog);
     return blogCard;
 }
+
 // ============================================================
 // Blog Display Functions
 // ============================================================
+
 /**
  * Get the blog list container
  */
-export function getBlogListContainer() {
-    return document.querySelector('.grid-list');
+export function getBlogListContainer(): Nullable<HTMLElement> {
+    return document.querySelector<HTMLElement>('.grid-list');
 }
+
 /**
  * Display all blogs in the grid
  */
-export function displayBlogs(blogData = blogs) {
+export function displayBlogs(
+    blogData: readonly BlogEntry[] = blogs
+): void {
     const blogList = getBlogListContainer();
+
     if (blogList === null) {
         return;
     }
-    blogData.forEach((blog) => {
+
+    blogData.forEach((blog: BlogEntry): void => {
         if (isValidBlogEntry(blog)) {
             const blogCard = createBlogCard(blog);
             blogList.appendChild(blogCard);
         }
     });
 }
+
 /**
  * Clear all blogs from the grid
  */
-export function clearBlogs() {
+export function clearBlogs(): void {
     const blogList = getBlogListContainer();
     if (blogList !== null) {
         blogList.innerHTML = '';
     }
 }
+
 /**
  * Refresh blogs with new data
  */
-export function refreshBlogs(blogData = blogs) {
+export function refreshBlogs(
+    blogData: readonly BlogEntry[] = blogs
+): void {
     clearBlogs();
     displayBlogs(blogData);
 }
+
 // ============================================================
 // Initialization
 // ============================================================
+
 /**
  * Initialize blog module
  */
-export function initBlog() {
+export function initBlog(): void {
     displayBlogs();
 }
+
 // Auto-initialize when window loads
-window.onload = () => {
+window.onload = (): void => {
     initBlog();
 };
